@@ -31,13 +31,18 @@
         }
         .card {
             aspect-ratio: 1;
-            background-size: cover;
-            background-position: center;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             transform: translateZ(0);
             touch-action: manipulation;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         .card:active {
             transform: scale(0.95) translateZ(0);
@@ -52,18 +57,14 @@
     </div>
     <script>
         const characters = [
-            'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple'
+            {name: '大娃', color: '#ff0000'},
+            {name: '二娃', color: '#ff7f00'},
+            {name: '三娃', color: '#ffff00'},
+            {name: '四娃', color: '#00ff00'},
+            {name: '五娃', color: '#00ffff'},
+            {name: '六娃', color: '#0000ff'},
+            {name: '七娃', color: '#8b00ff'}
         ];
-
-        const characterImages = {
-            'red': 'https://i.imgur.com/8zyWnqt.png',
-            'orange': 'https://i.imgur.com/Qx3wVZD.png',
-            'yellow': 'https://i.imgur.com/Aq1Qs0t.png',
-            'green': 'https://i.imgur.com/Aq1Qs0t.png',
-            'cyan': 'https://i.imgur.com/Aq1Qs0t.png',
-            'blue': 'https://i.imgur.com/Aq1Qs0t.png',
-            'purple': 'https://i.imgur.com/Aq1Qs0t.png'
-        };
 
         let currentLevel = 1;
         let selectedCards = [];
@@ -90,8 +91,9 @@
             cards.forEach((character, index) => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.dataset.character = character;
-                card.style.backgroundImage = `url('${characterImages[character]}')`;
+                card.dataset.character = character.name;
+                card.style.backgroundColor = character.color;
+                card.textContent = character.name;
                 card.addEventListener('click', () => selectCard(card));
                 gameBoard.appendChild(card);
             });
@@ -141,7 +143,6 @@
             createBoard(level);
         }
 
-        // 确保DOM加载完成后再开始游戏
         document.addEventListener('DOMContentLoaded', () => {
             startLevel(currentLevel);
         });
