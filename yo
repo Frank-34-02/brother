@@ -141,7 +141,10 @@
             createBoard(level);
         }
 
-        startLevel(currentLevel);
+        // 确保DOM加载完成后再开始游戏
+        document.addEventListener('DOMContentLoaded', () => {
+            startLevel(currentLevel);
+        });
     </script>
 </body>
 </html>
